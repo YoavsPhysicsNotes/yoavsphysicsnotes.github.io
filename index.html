@@ -15,7 +15,7 @@ function renderNode(node) {
     div.className = "pdf-item";
     const a = document.createElement("a");
     a.className = "pdf-link";
-    a.href = "https://raw.githubusercontent.com/YoavsPhysicsNotes/yoavsphysicsnotes.github.io/main/" + node.path;
+    a.href = "https://cdn.jsdelivr.net/gh/YoavsPhysicsNotes/yoavsphysicsnotes.github.io/" + node.path;
     a.target = "_blank";
     a.textContent = node.name.replace(/\.pdf$/i, "");
     div.appendChild(a);
