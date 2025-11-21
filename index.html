@@ -1,3 +1,7 @@
+<body>
+  <div class="logo-wrap">
+    <img src="logo.png" alt="Yoav's Physics Notes">
+  </div>
 <div id="content">טוען…</div>
 <script>
 async function loadTree() {
@@ -11,7 +15,7 @@ function renderNode(node) {
     div.className = "pdf-item";
     const a = document.createElement("a");
     a.className = "pdf-link";
-    a.href = node.download_url;
+    a.href = "https://raw.githubusercontent.com/YoavsPhysicsNotes/yoavsphysicsnotes.github.io/main/" + node.path;
     a.target = "_blank";
     a.textContent = node.name.replace(/\.pdf$/i, "");
     div.appendChild(a);
@@ -37,7 +41,7 @@ async function load() {
   const container = document.getElementById("content");
   container.innerHTML = "";
 
-  tree.forEach(node => container.appendChild(renderNode(node)));
+  tree.forEach(node => { if (!node.name.startsWith(".")) container.appendChild(renderNode(node)); });
 }
 
 load();
@@ -114,4 +118,3 @@ load();
     text-decoration: underline;
   }
 </style>
-<div id="content">טוען…</div>
