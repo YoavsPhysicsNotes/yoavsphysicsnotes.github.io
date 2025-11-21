@@ -89,7 +89,7 @@
 <script>
 const owner = "YoavsPhysicsNotes";
 const repo  = "yoavsphysicsnotes.github.io";
-const proxy = "https://api.allorigins.win/raw?url=";
+const proxy = "https://cors.isomorphic-git.org/";
 
 async function get(path = "") {
   const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
@@ -128,7 +128,7 @@ async function renderFolder(path, name) {
 
     const a = document.createElement("a");
     a.className = "pdf-link";
-    a.href = f.html_url;
+    a.href = f.download_url;
     a.target = "_blank";
     a.textContent = f.name.replace(/\.pdf$/i, "");
 
@@ -139,8 +139,13 @@ async function renderFolder(path, name) {
     dateSpan.style.fontSize = "0.85rem";
     getLastModified(f.path).then(d => {
       if (d) {
-        const day = d.slice(0, 10);
-        dateSpan.textContent = ` (עודכן: ${day})`;
+        const date = new Date(d);
+        const dd = String(date.getDate()).padStart(2, '0');
+        const mm = String(date.getMonth() + 1).padStart(2, '0');
+        const yy = String(date.getFullYear()).slice(-2);
+        const hh = String(date.getHours()).padStart(2, '0');
+        const min = String(date.getMinutes()).padStart(2, '0');
+        dateSpan.textContent = ` (${dd}-${mm}-${yy}, ${hh}:${min})`;
       }
     });
     div.appendChild(dateSpan);
@@ -181,11 +186,28 @@ async function load() {
 
       const a = document.createElement("a");
       a.className = "pdf-link";
-      a.href = f.html_url;
+      a.href = f.download_url;
       a.target = "_blank";
       a.textContent = f.name.replace(/\.pdf$/i, "");
 
       div.appendChild(a);
+
+      const dateSpan = document.createElement("span");
+      dateSpan.style.color = "#bbb";
+      dateSpan.style.fontSize = "0.85rem";
+      getLastModified(f.path).then(d => {
+        if (d) {
+          const date = new Date(d);
+          const dd = String(date.getDate()).padStart(2, '0');
+          const mm = String(date.getMonth() + 1).padStart(2, '0');
+          const yy = String(date.getFullYear()).slice(-2);
+          const hh = String(date.getHours()).padStart(2, '0');
+          const min = String(date.getMinutes()).padStart(2, '0');
+          dateSpan.textContent = ` (${dd}-${mm}-${yy}, ${hh}:${min})`;
+        }
+      });
+      div.appendChild(dateSpan);
+
       gen.appendChild(div);
     });
 
