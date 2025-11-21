@@ -42,3 +42,76 @@ async function load() {
 
 load();
 </script>
+
+<style>
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI";
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 16px;
+    direction: rtl;
+    text-align: right;
+    background: #111;
+    color: #fff;
+  }
+
+  .logo-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  .logo-wrap img {
+    max-height: 90px;
+    border-radius: 6px;
+  }
+
+  details {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 0.4rem 0.8rem 0.6rem;
+    margin-bottom: 0.6rem;
+  }
+
+  summary {
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+    outline: none;
+    font-size: 1rem;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  details > summary::before {
+    content: "▸";
+    display: inline-block;
+    margin-left: 6px;
+    transform: rotate(180deg);
+    transition: transform 0.15s ease-out;
+    color: #ccc;
+  }
+
+  details[open] > summary::before {
+    transform: rotate(90deg);
+  }
+
+  .pdf-item {
+    margin: 0.25rem 0;
+    padding-right: 1.2rem;
+  }
+
+  .pdf-link {
+    text-decoration: none;
+    color: #6aa6ff;
+    font-size: 0.96rem;
+  }
+
+  .pdf-link:hover {
+    text-decoration: underline;
+  }
+</style>
+<div id="content">טוען…</div>
