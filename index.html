@@ -97,11 +97,21 @@ async function get(path = "") {
   return res.ok ? await res.json() : [];
 }
 
+async function getLastModified(path) {
+  const url = `https://api.github.com/repos/${owner}/${repo}/commits?path=${encodeURIComponent(path)}&page=1&per_page=1`;
+  const res = await fetch(proxy + encodeURIComponent(url));
+  if (!res.ok) return null;
+  const commits = await res.json();
+  if (commits.length === 0) return null;
+  return commits[0].commit.author.date;
+}
+
 function isPdf(f) { return f.type === "file" && f.name.toLowerCase().endsWith(".pdf"); }
 function isDir(f) { return f.type === "dir"; }
 
 /* רינדור תיקייה עם עומק בלתי מוגבל */
 async function renderFolder(path, name) {
+  if (name.startsWith(".")) return document.createDocumentFragment();
   const det = document.createElement("details");
   const sum = document.createElement("summary");
   sum.textContent = name;
@@ -118,11 +128,23 @@ async function renderFolder(path, name) {
 
     const a = document.createElement("a");
     a.className = "pdf-link";
-    a.href = f.download_url;
+    a.href = f.html_url;
     a.target = "_blank";
     a.textContent = f.name.replace(/\.pdf$/i, "");
 
     div.appendChild(a);
+
+    const dateSpan = document.createElement("span");
+    dateSpan.style.color = "#bbb";
+    dateSpan.style.fontSize = "0.85rem";
+    getLastModified(f.path).then(d => {
+      if (d) {
+        const day = d.slice(0, 10);
+        dateSpan.textContent = ` (עודכן: ${day})`;
+      }
+    });
+    div.appendChild(dateSpan);
+
     det.appendChild(div);
   });
 
@@ -159,7 +181,7 @@ async function load() {
 
       const a = document.createElement("a");
       a.className = "pdf-link";
-      a.href = f.download_url;
+      a.href = f.html_url;
       a.target = "_blank";
       a.textContent = f.name.replace(/\.pdf$/i, "");
 
@@ -172,6 +194,7 @@ async function load() {
 
   /* תיקיות ברמה הראשונה */
   for (const d of dirs) {
+    if (d.name.startsWith(".")) continue;
     const block = await renderFolder(d.path, d.name);
     container.appendChild(block);
   }
