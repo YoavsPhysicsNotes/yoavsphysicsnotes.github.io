@@ -17,7 +17,8 @@ function renderNode(node) {
     a.className = "pdf-link";
     a.href = "https://cdn.jsdelivr.net/gh/YoavsPhysicsNotes/yoavsphysicsnotes.github.io/" + node.path;
     a.target = "_blank";
-    a.textContent = node.name.replace(/\.pdf$/i, "") + (node.last_modified ? " (" + node.last_modified + ")" : "");
+    const dateText = node.last_modified ? " — " + new Date(node.last_modified).toLocaleString("he-IL") : "";
+    a.textContent = node.name.replace(/\.pdf$/i, "") + dateText;
     div.appendChild(a);
     return div;
   }
@@ -25,7 +26,8 @@ function renderNode(node) {
   if (node.type === "dir") {
     const det = document.createElement("details");
     const sum = document.createElement("summary");
-    sum.textContent = node.name + (node.last_modified ? " (" + node.last_modified + ")" : "");
+    const dateText = node.last_modified ? " — " + new Date(node.last_modified).toLocaleString("he-IL") : "";
+    sum.textContent = node.name + dateText;
     det.appendChild(sum);
 
     node.children.forEach(child => {
