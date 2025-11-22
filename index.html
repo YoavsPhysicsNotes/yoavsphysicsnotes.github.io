@@ -15,7 +15,7 @@ function renderNode(node) {
     div.className = "pdf-item";
     const a = document.createElement("a");
     a.className = "pdf-link";
-    a.href = node.path;
+    a.href = "https://cdn.jsdelivr.net/gh/YoavsPhysicsNotes/yoavsphysicsnotes.github.io/" + node.path;
     a.target = "_blank";
     // Remove dateText from the link text
     a.textContent = node.name.replace(/\.pdf$/i, "");
@@ -41,7 +41,7 @@ function renderNode(node) {
   if (node.type === "dir") {
     const det = document.createElement("details");
     const sum = document.createElement("summary");
-    const dateText = node.last_modified ? " — " + new Date(node.last_modified).toLocaleString("he-IL") : "";
+    const dateText = "";
     sum.textContent = node.name + dateText;
     det.appendChild(sum);
 
