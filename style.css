@@ -1,0 +1,159 @@
+
+
+/* Global layout */
+body {
+  font-family: system-ui, -apple-system, "Segoe UI";
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 16px;
+  direction: rtl;
+  text-align: right;
+  background: #111;
+  color: #fff;
+}
+
+/* Header */
+.logo-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.logo-wrap img {
+  max-height: 90px;
+  border-radius: 6px;
+}
+
+#top-menu {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 20px;
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+#top-menu a {
+  color: #e0e0e0;
+  text-decoration: none;
+}
+
+#top-menu a:hover {
+  color: #9ecbff;
+  text-decoration: underline;
+}
+
+#top-menu .sep {
+  color: #777;
+  margin: 0 4px;
+}
+
+/* Tree container */
+#tree-container {
+  background: #262525;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+/* Folder tree */
+details {
+  background: none;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  margin-bottom: 0.4rem;
+  padding-right: 1rem;
+  border-right: 1px solid #333;
+}
+
+details details {
+  padding-right: 2rem;
+}
+
+details details details {
+  padding-right: 3rem;
+}
+
+summary {
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+  outline: none;
+  font-size: 1rem;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+details > summary::before {
+  content: "▸";
+  display: inline-block;
+  margin-left: 6px;
+  transform: rotate(180deg);
+  transition: transform 0.15s ease-out;
+  color: #ccc;
+}
+
+details[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+/* Icons */
+.icon.folder::before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-left: 6px;
+  vertical-align: middle;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23c2c3c5" viewBox="0 0 16 16"><path d="M9.828 4a3 3 0 0 1 2.12.879l.172.17H13a2 2 0 0 1 2 2v5.5A2.5 2.5 0 0 1 12.5 15h-9A2.5 2.5 0 0 1 1 12.5v-9A2.5 2.5 0 0 1 3.5 1h2.672a2.5 2.5 0 0 1 1.768.732L9.828 4z"/></svg>');
+  background-size: 16px 16px;
+  background-repeat: no-repeat;
+}
+
+details[open] > summary .icon.folder::before {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23c2c3c5" viewBox="0 0 16 16"><path d="M2.5 3a1.5 1.5 0 0 0-1.415 1H6l1 1h6.5A1.5 1.5 0 0 1 15 6.5V8H1V4.5A1.5 1.5 0 0 1 2.5 3z"/><path d="M15 9v3.5A1.5 1.5 0 0 1 13.5 14h-11A1.5 1.5 0 0 1 1 12.5V9h14z"/></svg>');
+}
+
+.icon.pdf::before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-left: 6px;
+  vertical-align: middle;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23e06c75" viewBox="0 0 16 16"><path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V5.414A2 2 0 0 0 13.414 4L10 0.586A2 2 0 0 0 8.586 0H4z"/><text x="4" y="12" font-size="6" fill="white">PDF</text></svg>');
+  background-size: 16px 16px;
+  background-repeat: no-repeat;
+}
+
+/* PDFs */
+.pdf-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 1.2rem;
+}
+
+.pdf-item {
+  margin: 0.25rem 0;
+  padding-right: 1.2rem;
+}
+
+.pdf-link {
+  text-decoration: none;
+  color: #9ecbff;
+  font-size: 0.96rem;
+  font-weight: 500;
+}
+
+.pdf-link:hover {
+  color: #cce6ff;
+  text-decoration: underline;
+}
+
+.file-date {
+  color: #bbb;
+  font-size: 0.85rem;
+}
