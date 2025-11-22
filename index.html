@@ -17,9 +17,17 @@ function renderNode(node) {
     a.className = "pdf-link";
     a.href = "https://cdn.jsdelivr.net/gh/YoavsPhysicsNotes/yoavsphysicsnotes.github.io/" + node.path;
     a.target = "_blank";
-    const dateText = node.last_modified ? " — " + new Date(node.last_modified).toLocaleString("he-IL") : "";
-    a.textContent = node.name.replace(/\.pdf$/i, "") + dateText;
+    // Remove dateText from the link text
+    a.textContent = node.name.replace(/\.pdf$/i, "");
     div.appendChild(a);
+    // Add date as a separate span
+    if (node.last_modified) {
+      const dateSpan = document.createElement("span");
+      const d = new Date(node.last_modified);
+      dateSpan.className = "file-date";
+      dateSpan.textContent = " — " + d.toLocaleDateString("he-IL") + " " + d.toLocaleTimeString("he-IL", { hour: "2-digit", minute: "2-digit" });
+      div.appendChild(dateSpan);
+    }
     return div;
   }
 
