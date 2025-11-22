@@ -3,6 +3,15 @@
   <div class="logo-wrap">
     <img src="logo.png" alt="Yoav's Physics Notes">
   </div>
+  <nav id="top-menu">
+    <a href="#">בית</a>
+    <span class="sep">|</span>
+    <a href="#">פתרונות</a>
+    <span class="sep">|</span>
+    <a href="#">אודות</a>
+    <span class="sep">|</span>
+    <a href="#">צור קשר</a>
+  </nav>
 <div id="tree-container">
   <div id="content">טוען…</div>
 </div>
@@ -80,6 +89,30 @@ load();
 </script>
 
 <style>
+  #top-menu {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 20px;
+    font-size: 1.05rem;
+    font-weight: 500;
+  }
+
+  #top-menu a {
+    color: #e0e0e0;
+    text-decoration: none;
+  }
+
+  #top-menu a:hover {
+    color: #9ecbff;
+    text-decoration: underline;
+  }
+
+  #top-menu .sep {
+    color: #777;
+    margin: 0 4px;
+  }
+
   #tree-container {
     background: #262525;
     padding: 20px;
