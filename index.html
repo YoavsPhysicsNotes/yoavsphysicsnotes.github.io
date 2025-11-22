@@ -5,7 +5,7 @@
 <div id="content">טוען…</div>
 <script>
 async function loadTree() {
-  const res = await fetch("tree.json?ts=" + Date.now());
+  const res = await fetch("https://raw.githubusercontent.com/YoavsPhysicsNotes/yoavsphysicsnotes.github.io/main/tree.json?ts=" + Date.now());
   return await res.json();
 }
 
