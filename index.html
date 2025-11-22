@@ -12,6 +12,8 @@ async function loadTree() {
 
 function renderNode(node) {
   if (node.type === "pdf") {
+    const div = document.createElement("div");
+    div.className = "pdf-item";
     const a = document.createElement("a");
     a.className = "pdf-link";
     a.href = "https://cdn.jsdelivr.net/gh/YoavsPhysicsNotes/yoavsphysicsnotes.github.io/" + node.path;
@@ -31,10 +33,18 @@ function renderNode(node) {
       wrapper.className = "pdf-row";
       wrapper.appendChild(a);
       wrapper.appendChild(dateSpan);
-
+      // Add PDF icon
+      const icon = document.createElement("span");
+      icon.className = "icon pdf";
+      wrapper.prepend(icon);
       return wrapper;
     }
-    return a;
+    // Add PDF icon for items without date
+    const icon = document.createElement("span");
+    icon.className = "icon pdf";
+    div.appendChild(a);
+    div.prepend(icon);
+    return div;
   }
 
   if (node.type === "dir") {
@@ -42,6 +52,10 @@ function renderNode(node) {
     const sum = document.createElement("summary");
     const dateText = "";
     sum.textContent = node.name + dateText;
+    // Add folder icon
+    const icon = document.createElement("span");
+    icon.className = "icon folder";
+    sum.prepend(icon);
     det.appendChild(sum);
 
     node.children.forEach(child => {
@@ -87,10 +101,11 @@ load();
   }
 
   details {
-    padding: 0.2rem 0.4rem;
-    margin-bottom: 0.4rem;
-    border: none;
-    background: transparent;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 0.4rem 0.8rem 0.6rem;
+    margin-bottom: 0.6rem;
   }
 
   summary {
@@ -99,36 +114,83 @@ load();
     list-style: none;
     outline: none;
     font-size: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 6px;
   }
 
-  summary::before {
-    content: "📁";
-    font-size: 1rem;
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  details > summary::before {
+    content: "▸";
+    display: inline-block;
+    margin-left: 6px;
+    transform: rotate(180deg);
+    transition: transform 0.15s ease-out;
+    color: #ccc;
   }
 
   details[open] > summary::before {
-    content: "📂";
+    transform: rotate(90deg);
   }
 
-  .pdf-row {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-right: 1.4rem;
-    font-size: 0.95rem;
+  .pdf-item {
+    margin: 0.25rem 0;
+    padding-right: 1.2rem;
   }
 
-  .pdf-row::before {
-    content: "📄";
-    font-size: 1rem;
+  .pdf-link {
+    text-decoration: none;
+    color: #9ecbff;
+    font-size: 0.96rem;
+    font-weight: 500;
   }
 
-  .file-date {
-    margin-right: auto;
-    color: #bbb;
-    font-size: 0.82rem;
+  .pdf-link:hover {
+    color: #cce6ff;
+    text-decoration: underline;
   }
+.icon.folder::before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-left: 6px;
+  vertical-align: middle;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23c2c3c5" viewBox="0 0 16 16"><path d="M9.828 4a3 3 0 0 1 2.12.879l.172.17H13a2 2 0 0 1 2 2v5.5A2.5 2.5 0 0 1 12.5 15h-9A2.5 2.5 0 0 1 1 12.5v-9A2.5 2.5 0 0 1 3.5 1h2.672a2.5 2.5 0 0 1 1.768.732L9.828 4z"/></svg>');
+  background-size: 16px 16px;
+  background-repeat: no-repeat;
+}
+
+details[open] > summary .icon.folder::before {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23c2c3c5" viewBox="0 0 16 16"><path d="M2.5 3a1.5 1.5 0 0 0-1.415 1H6l1 1h6.5A1.5 1.5 0 0 1 15 6.5V8H1V4.5A1.5 1.5 0 0 1 2.5 3z"/><path d="M15 9v3.5A1.5 1.5 0 0 1 13.5 14h-11A1.5 1.5 0 0 1 1 12.5V9h14z"/></svg>');
+}
+
+.icon.pdf::before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-left: 6px;
+  vertical-align: middle;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23e06c75" viewBox="0 0 16 16"><path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V5.414A2 2 0 0 0 13.414 4L10 0.586A2 2 0 0 0 8.586 0H4z"/><text x="4" y="12" font-size="6" fill="white">PDF</text></svg>');
+  background-size: 16px 16px;
+  background-repeat: no-repeat;
+}
+
+.pdf-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 1.2rem;
+}
+
+.file-date {
+  color: #bbb;
+  font-size: 0.85rem;
+}
 </style>
+  #content {
+    background: #161616;
+    padding: 20px;
+    border-radius: 12px;
+  }
