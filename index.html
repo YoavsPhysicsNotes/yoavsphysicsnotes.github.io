@@ -19,14 +19,21 @@ function renderNode(node) {
     a.target = "_blank";
     // Remove dateText from the link text
     a.textContent = node.name.replace(/\.pdf$/i, "");
-    div.appendChild(a);
-    // Add date as a separate span
+    // Add date as a separate span aligned left
     if (node.last_modified) {
       const dateSpan = document.createElement("span");
       const d = new Date(node.last_modified);
       dateSpan.className = "file-date";
-      dateSpan.textContent = " — " + d.toLocaleDateString("he-IL") + " " + d.toLocaleTimeString("he-IL", { hour: "2-digit", minute: "2-digit" });
-      div.appendChild(dateSpan);
+      dateSpan.textContent = "תאריך עדכון: " +
+        d.toLocaleDateString("he-IL") + " " +
+        d.toLocaleTimeString("he-IL", { hour: "2-digit", minute: "2-digit" });
+
+      const wrapper = document.createElement("div");
+      wrapper.className = "pdf-row";
+      wrapper.appendChild(a);
+      wrapper.appendChild(dateSpan);
+
+      return wrapper;
     }
     return div;
   }
@@ -127,4 +134,16 @@ load();
   .pdf-link:hover {
     text-decoration: underline;
   }
+
+.pdf-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 1.2rem;
+}
+
+.file-date {
+  color: #bbb;
+  font-size: 0.85rem;
+}
 </style>
