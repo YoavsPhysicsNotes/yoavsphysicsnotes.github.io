@@ -3,7 +3,9 @@
   <div class="logo-wrap">
     <img src="logo.png" alt="Yoav's Physics Notes">
   </div>
-<div id="content">טוען…</div>
+<div id="tree-container">
+  <div id="content">טוען…</div>
+</div>
 <script>
 async function loadTree() {
   const res = await fetch("https://raw.githubusercontent.com/YoavsPhysicsNotes/yoavsphysicsnotes.github.io/main/tree.json?ts=" + Date.now());
@@ -78,6 +80,12 @@ load();
 </script>
 
 <style>
+  #tree-container {
+    background: #161616;
+    padding: 20px;
+    border-radius: 12px;
+  }
+
   body {
     font-family: system-ui, -apple-system, "Segoe UI";
     max-width: 800px;
@@ -108,6 +116,19 @@ load();
     margin-bottom: 0.4rem;
   }
 
+  details {
+    padding-right: 1rem;
+    border-right: 1px solid #333;
+  }
+
+  details details {
+    padding-right: 2rem;
+  }
+
+  details details details {
+    padding-right: 3rem;
+  }
+
   summary {
     font-weight: 600;
     cursor: pointer;
@@ -131,6 +152,10 @@ load();
 
   details[open] > summary::before {
     transform: rotate(90deg);
+  }
+
+  .pdf-row, .pdf-item {
+    text-align: right;
   }
 
   .pdf-item {
