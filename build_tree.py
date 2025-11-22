@@ -5,6 +5,8 @@ from datetime import datetime
 
 ROOT = "."  # הסקריפט רץ בתיקיית הריפו
 
+IGNORE = {"node_modules", "package.json", "package-lock.json", "build_tree.py", "generate-tree.js", "README.md"}
+
 def get_last_modified(path):
     """מחזיר את תאריך העדכון האחרון של קובץ מתוך git"""
     try:
@@ -22,6 +24,9 @@ def scan_directory(path):
     for name in sorted(os.listdir(path)):
         if name.startswith("."):
             continue  # לא להציג תיקיות מערכת כמו .idea, .git וכו'
+
+        if name in IGNORE:
+            continue
 
         full_path = os.path.join(path, name)
 
