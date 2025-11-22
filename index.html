@@ -5,7 +5,7 @@
 <div id="content">טוען…</div>
 <script>
 async function loadTree() {
-  const res = await fetch("tree.json");
+  const res = await fetch("tree.json?ts=" + Date.now());
   return await res.json();
 }
 
@@ -15,7 +15,7 @@ function renderNode(node) {
     div.className = "pdf-item";
     const a = document.createElement("a");
     a.className = "pdf-link";
-    a.href = "https://raw.githubusercontent.com/YoavsPhysicsNotes/yoavsphysicsnotes.github.io/main/" + node.path;
+    a.href = node.path;
     a.target = "_blank";
     // Remove dateText from the link text
     a.textContent = node.name.replace(/\.pdf$/i, "");
