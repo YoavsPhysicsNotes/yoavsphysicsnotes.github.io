@@ -1,9 +1,4 @@
 
-
-html, body {
-  height: 100%;
-}
-
 /* Global layout */
 body {
   display: flex;
@@ -16,6 +11,7 @@ body {
   text-align: right;
   background: #111;
   color: #fff;
+  min-height: 100vh;
 }
 
 /* Header */
@@ -59,6 +55,7 @@ body {
   background: #262525;
   padding: 20px;
   border-radius: 12px;
+  flex: 1 0 auto;
 }
 
 /* Folder tree */
@@ -162,6 +159,10 @@ details[open] > summary .icon.folder::before {
 .file-date {
   color: #bbb;
   font-size: 0.85rem;
+}
+
+main {
+  flex: 1 0 auto;
 }
 
 #site-footer {
