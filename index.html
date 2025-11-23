@@ -1,12 +1,3 @@
-<div include-html="header.html"></div>
-
-<div id="main-wrapper">
-  <h1>פתרונות</h1>
-  <p>כאן יהיו פתרונות…</p>
-</div>
-
-<div include-html="footer.html" id="site-footer"></div>
-<script src="include.js"></script>
 <!DOCTYPE html>
 <html lang="he">
 <head>
@@ -14,87 +5,87 @@
   <title>Yoav's Physics Notes</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-  <div include-html="header.html"></div>
 
-  <div id="tree-container">
-    <div id="content">טוען…</div>
-  </div>
+<!-- HEADER -->
+<div include-html="header.html"></div>
 
-  <script>
-    async function loadTree() {
-      const res = await fetch("https://raw.githubusercontent.com/YoavsPhysicsNotes/yoavsphysicsnotes.github.io/main/tree.json?ts=" + Date.now());
-      return await res.json();
-    }
+<!-- CONTENT -->
+<div id="tree-container">
+  <div id="content">טוען…</div>
+</div>
 
-    function renderNode(node) {
-      if (node.type === "pdf") {
-        const div = document.createElement("div");
-        div.className = "pdf-item";
-        const a = document.createElement("a");
-        a.className = "pdf-link";
-        a.href = "https://cdn.jsdelivr.net/gh/YoavsPhysicsNotes/yoavsphysicsnotes.github.io/" + node.path;
-        a.target = "_blank";
-        a.textContent = node.name.replace(/\.pdf$/i, "");
+<!-- FOOTER -->
+<div include-html="footer.html" id="site-footer"></div>
 
-        if (node.last_modified) {
-          const dateSpan = document.createElement("span");
-          const d = new Date(node.last_modified);
-          dateSpan.className = "file-date";
-          dateSpan.textContent = "תאריך עדכון: " +
-            d.toLocaleDateString("he-IL") + " " +
-            d.toLocaleTimeString("he-IL", { hour: "2-digit", minute: "2-digit" });
+<script src="include.js"></script>
 
-          const wrapper = document.createElement("div");
-          wrapper.className = "pdf-row";
-          wrapper.appendChild(a);
-          wrapper.appendChild(dateSpan);
+<script>
+  async function loadTree() {
+    const res = await fetch("https://raw.githubusercontent.com/YoavsPhysicsNotes/yoavsphysicsnotes.github.io/main/tree.json?ts=" + Date.now());
+    return await res.json();
+  }
 
-          const icon = document.createElement("span");
-          icon.className = "icon pdf";
-          wrapper.prepend(icon);
-          return wrapper;
-        }
+  function renderNode(node) {
+    if (node.type === "pdf") {
+      const wrapper = document.createElement("div");
+      wrapper.className = "pdf-row";
 
-        const icon = document.createElement("span");
-        icon.className = "icon pdf";
-        div.appendChild(a);
-        div.prepend(icon);
-        return div;
+      const icon = document.createElement("span");
+      icon.className = "icon pdf";
+
+      const a = document.createElement("a");
+      a.className = "pdf-link";
+      a.href = "https://cdn.jsdelivr.net/gh/YoavsPhysicsNotes/yoavsphysicsnotes.github.io/" + node.path;
+      a.target = "_blank";
+      a.textContent = node.name.replace(/\.pdf$/i, "");
+
+      const dateSpan = document.createElement("span");
+      if (node.last_modified) {
+        const d = new Date(node.last_modified);
+        dateSpan.className = "file-date";
+        dateSpan.textContent =
+                "תאריך עדכון: " +
+                d.toLocaleDateString("he-IL") +
+                " " +
+                d.toLocaleTimeString("he-IL", { hour: "2-digit", minute: "2-digit" });
       }
 
-      if (node.type === "dir") {
-        const det = document.createElement("details");
-        const sum = document.createElement("summary");
-        sum.textContent = node.name;
+      wrapper.appendChild(icon);
+      wrapper.appendChild(a);
+      wrapper.appendChild(dateSpan);
 
-        const icon = document.createElement("span");
-        icon.className = "icon folder";
-        sum.prepend(icon);
-        det.appendChild(sum);
-
-        node.children.forEach(child => {
-          det.appendChild(renderNode(child));
-        });
-
-        return det;
-      }
+      return wrapper;
     }
 
-    async function load() {
-      const tree = await loadTree();
-      const container = document.getElementById("content");
-      container.innerHTML = "";
+    if (node.type === "dir") {
+      const det = document.createElement("details");
+      const sum = document.createElement("summary");
 
-      tree.forEach(node => {
-        if (!node.name.startsWith(".")) container.appendChild(renderNode(node));
-      });
+      const icon = document.createElement("span");
+      icon.className = "icon folder";
+
+      sum.prepend(icon);
+      sum.append(node.name);
+      det.appendChild(sum);
+
+      node.children.forEach(child => det.appendChild(renderNode(child)));
+      return det;
     }
+  }
 
-    load();
-  </script>
+  async function load() {
+    const tree = await loadTree();
+    const content = document.getElementById("content");
+    content.innerHTML = "";
+    tree.forEach(node => {
+      if (!node.name.startsWith(".")) content.appendChild(renderNode(node));
+    });
+  }
 
-  <div include-html="footer.html" id="site-footer"></div>
-  <script src="include.js"></script>
+  load();
+</script>
+
 </body>
 </html>
