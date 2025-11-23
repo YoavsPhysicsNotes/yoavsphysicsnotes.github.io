@@ -1,9 +1,108 @@
-<div include-html="header.html"></div>
+/* Layout base */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
 
-<div id="main-wrapper">
-  <h1>פתרונות</h1>
-  <p>כאן יהיו פתרונות…</p>
-</div>
+body {
+    display: flex;
+    flex-direction: column;
+    font-family: system-ui, -apple-system, "Segoe UI";
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 16px;
+    direction: rtl;
+    text-align: right;
+    background: #111;
+    color: #fff;
+}
 
-<div include-html="footer.html" id="site-footer"></div>
-<script src="include.js"></script>
+/* HEADER + CONTENT + FOOTER */
+#tree-container {
+    background: #262525;
+    padding: 20px;
+    border-radius: 12px;
+    flex: 1;  /* 👈 נותן לתוכן לתפוס את כל הגובה */
+}
+
+/* FOOTER */
+#site-footer {
+    margin-top: auto;
+    padding: 18px 0;
+    text-align: center;
+    color: #aaa;
+    font-size: 0.9rem;
+    border-top: 1px solid #333;
+}
+
+#site-footer a {
+    color: #9ecbff;
+    text-decoration: none;
+}
+
+#site-footer a:hover {
+    text-decoration: underline;
+}
+
+/* NAVIGATION */
+.logo-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.logo-wrap img {
+    max-height: 90px;
+    border-radius: 6px;
+}
+
+#top-menu {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 20px;
+    font-size: 1.05rem;
+    font-weight: 500;
+}
+
+#top-menu a {
+    color: #e0e0e0;
+    text-decoration: none;
+}
+
+#top-menu a:hover {
+    color: #9ecbff;
+}
+
+/* TREE */
+details {
+    margin-bottom: 0.4rem;
+    padding-right: 1rem;
+    border-right: 1px solid #333;
+}
+
+details details { padding-right: 2rem; }
+details details details { padding-right: 3rem; }
+
+summary {
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.icon.folder::before { … } /* (השאר כמו שהיה אצלך) */
+.icon.pdf::before { … }
+
+/* PDF rows */
+.pdf-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 1.2rem;
+}
+
+.file-date {
+    color: #bbb;
+    font-size: 0.85rem;
+}
