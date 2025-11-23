@@ -18,12 +18,19 @@ body {
     color: #fff;
 }
 
+/* NEW WRAPPER */
+#main-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
 /* HEADER + CONTENT + FOOTER */
 #tree-container {
     background: #262525;
     padding: 20px;
     border-radius: 12px;
-    flex: 1;  /* 👈 נותן לתוכן לתפוס את כל הגובה */
+    /* flex: 1;  /* 👈 נותן לתוכן לתפוס את כל הגובה */ */
 }
 
 /* FOOTER */
