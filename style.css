@@ -1,13 +1,14 @@
 /* Layout base */
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+html {
+    height: 100%;  /* מבטיח גובה מלא */
 }
 
 body {
     display: flex;
     flex-direction: column;
+    min-height: 100vh;  /* מינימום גובה מסך מלא */
+    margin: 0;
+    padding: 0;
     font-family: system-ui, -apple-system, "Segoe UI";
     max-width: 800px;
     margin: 0 auto;
@@ -19,16 +20,20 @@ body {
 }
 
 /* HEADER + CONTENT + FOOTER */
+main {  /* חדש: main במקום #tree-container – הוא מתרחב */
+    flex: 1;  /* מתרחב למלא את החלל ודוחף פוטר למטה */
+}
+
 #tree-container {
     background: #262525;
     padding: 20px;
     border-radius: 12px;
-    flex: 1;  /* 👈 נותן לתוכן לתפוס את כל הגובה */
+    /* הסרתי flex:1 מכאן – main מטפל בזה עכשיו */
 }
 
 /* FOOTER */
 #site-footer {
-    margin-top: auto;
+    margin-top: auto;  /* דוחף למטה אוטומטית */
     padding: 18px 0;
     text-align: center;
     color: #aaa;
@@ -91,8 +96,8 @@ summary {
     font-size: 1rem;
 }
 
-.icon.folder::before { … } /* (השאר כמו שהיה אצלך) */
-.icon.pdf::before { … }
+.icon.folder::before { /* השאר כמו שהיה אצלך */ }
+.icon.pdf::before { /* השאר כמו שהיה אצלך */ }
 
 /* PDF rows */
 .pdf-row {
