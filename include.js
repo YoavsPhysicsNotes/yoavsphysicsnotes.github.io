@@ -1,12 +1,15 @@
-document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll("[include-html]").forEach(async el => {
+document.addEventListener("DOMContentLoaded", function () {
+    const includes = document.querySelectorAll("[include-html]");
+
+    includes.forEach(el => {
         const file = el.getAttribute("include-html");
-        try {
-            const res = await fetch(file + "?v=" + Date.now());
-            if (!res.ok) throw new Error("Failed include");
-            el.innerHTML = await res.text();
-        } catch (e) {
-            el.innerHTML = "<!-- include failed -->";
-        }
+        fetch(file)
+            .then(res => res.text())
+            .then(html => {
+                el.innerHTML = html;
+            })
+            .catch(err => {
+                el.innerHTML = "Include load error";
+            });
     });
 });
