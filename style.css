@@ -1,4 +1,4 @@
-/ * Global layout */
+/* Global layout */
 body {
   display: flex;
   flex-direction: column;
@@ -12,6 +12,11 @@ body {
   color: #fff;
   min-height: 100vh;
 }
+
+html, body { height: 100%; }
+body { display: flex; flex-direction: column; }
+#content, #tree-container { flex: 1; }
+#site-footer { margin-top: auto; }
 
 /* Header */
 .logo-wrap {
