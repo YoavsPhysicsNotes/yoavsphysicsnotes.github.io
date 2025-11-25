@@ -8,14 +8,23 @@ ROOT = "."  # הסקריפט רץ בתיקיית הריפו
 IGNORE = {"node_modules", "package.json", "package-lock.json", "build_tree.py", "generate-tree.js", "README.md"}
 
 def get_last_modified(path):
-    """מחזיר את תאריך העדכון האחרון של קובץ מתוך git"""
+    """מחזיר תאריך עדכון מ-Git, ואם אין — תאריך יצירת הקובץ"""
     try:
         result = subprocess.check_output(
             ["git", "log", "-1", "--format=%ci", "--", path],
             stderr=subprocess.STDOUT
         ).decode().strip()
-        return result
+
+        if result:
+            return result
     except subprocess.CalledProcessError:
+        pass  # ננסה fallback
+
+    # fallback: תאריך קובץ בפועל
+    try:
+        ts = os.path.getmtime(path)
+        return datetime.fromtimestamp(ts).strftime("%Y-%m-%d %H:%M:%S")
+    except:
         return None
 
 def scan_directory(path):
