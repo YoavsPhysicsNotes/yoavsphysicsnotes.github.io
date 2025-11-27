@@ -111,3 +111,22 @@ summary {
     color: #bbb;
     font-size: 0.85rem;
 }
+
+
+/* --- WhatsApp icon in footer --- */
+#site-footer .wa-icon {
+    display: inline-block;
+    margin-top: 8px;
+}
+
+#site-footer .wa-icon svg {
+    width: 34px;
+    height: 34px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+#site-footer .wa-icon svg:hover {
+    transform: scale(1.1);
+    transition: 0.15s;
+}
