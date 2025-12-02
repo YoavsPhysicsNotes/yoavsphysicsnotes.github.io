@@ -41,7 +41,7 @@
       a.className = "pdf-link";
       a.href =
               "https://raw.githubusercontent.com/YoavsPhysicsNotes/yoavsphysicsnotes.github.io/main/" +
-              node.path +
+              encodeURIComponent(node.path) +
               "?v=" +
               node.last_modified;
       a.target = "_blank";
