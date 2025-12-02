@@ -38,7 +38,7 @@ async function getTree(path = "") {
                 name: item.name,
                 path: item.path,
                 last_modified: lastMod.data.commit.author.date,
-                download_url: item.download_url
+                download_url: `${item.download_url}?v=${item.sha}`
             });
         }
     }
