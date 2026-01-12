@@ -50,13 +50,16 @@
 
       const a = document.createElement("a");
       a.className = "pdf-link";
-      a.href =
-              "https://raw.githubusercontent.com/YoavsPhysicsNotes/yoavsphysicsnotes.github.io/main/" +
-              encodeURIComponent(node.path) +
-              "?v=" +
-              node.last_modified;
-      a.target = "_blank";
-      a.textContent = node.name.replace(/\.pdf$/i, "");
+      
+      a.href = node.path.split('/').map(encodeURIComponent).join('/') + "?v=" + node.last_modified;
+
+      // a.href =
+      //         "https://raw.githubusercontent.com/YoavsPhysicsNotes/yoavsphysicsnotes.github.io/main/" +
+      //         encodeURIComponent(node.path) +
+      //         "?v=" +
+      //         node.last_modified;
+      // a.target = "_blank";
+      // a.textContent = node.name.replace(/\.pdf$/i, "");
 
       const dateSpan = document.createElement("span");
       if (node.last_modified) {
