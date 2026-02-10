@@ -88,10 +88,10 @@
         "children": [
           {
             "type": "pdf",
-            "name": " 2025 א׳ מועד א׳.pdf",
-            "path": "20602 שיטות מתמטיות בפיסיקה/מבחנים/ 2025 א׳ מועד א׳.pdf",
-            "download_url": "https://raw.githubusercontent.com/YoavsPhysicsNotes/yoavsphysicsnotes.github.io/main/20602 שיטות מתמטיות בפיסיקה/מבחנים/ 2025 א׳ מועד א׳.pdf",
-            "last_modified": "2026-02-08 11:43:44 +0200"
+            "name": " 2025א׳ מועד א׳.pdf",
+            "path": "20602 שיטות מתמטיות בפיסיקה/מבחנים/ 2025א׳ מועד א׳.pdf",
+            "download_url": "https://raw.githubusercontent.com/YoavsPhysicsNotes/yoavsphysicsnotes.github.io/main/20602 שיטות מתמטיות בפיסיקה/מבחנים/ 2025א׳ מועד א׳.pdf",
+            "last_modified": "2026-02-08 11:41:12"
           },
           {
             "type": "pdf",
@@ -99,6 +99,13 @@
             "path": "20602 שיטות מתמטיות בפיסיקה/מבחנים/ 2025א׳ מועד ב׳.pdf",
             "download_url": "https://raw.githubusercontent.com/YoavsPhysicsNotes/yoavsphysicsnotes.github.io/main/20602 שיטות מתמטיות בפיסיקה/מבחנים/ 2025א׳ מועד ב׳.pdf",
             "last_modified": "2026-02-08 11:43:44 +0200"
+          },
+          {
+            "type": "pdf",
+            "name": "2024א׳ מועד ב.pdf",
+            "path": "20602 שיטות מתמטיות בפיסיקה/מבחנים/2024א׳ מועד ב.pdf",
+            "download_url": "https://raw.githubusercontent.com/YoavsPhysicsNotes/yoavsphysicsnotes.github.io/main/20602 שיטות מתמטיות בפיסיקה/מבחנים/2024א׳ מועד ב.pdf",
+            "last_modified": "2026-02-10 21:18:25"
           }
         ]
       },
