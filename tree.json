@@ -145,11 +145,18 @@
         ]
       },
       {
-        "type": "pdf",
-        "name": "שאלות לתרגול.pdf",
-        "path": "20602 שיטות מתמטיות בפיסיקה/שאלות לתרגול.pdf",
-        "download_url": "https://raw.githubusercontent.com/YoavsPhysicsNotes/yoavsphysicsnotes.github.io/main/20602 שיטות מתמטיות בפיסיקה/שאלות לתרגול.pdf",
-        "last_modified": "2026-02-11 22:26:57 +0200"
+        "type": "dir",
+        "name": "תרגול",
+        "path": "20602 שיטות מתמטיות בפיסיקה/תרגול",
+        "children": [
+          {
+            "type": "pdf",
+            "name": "שאלות לתרגול.pdf",
+            "path": "20602 שיטות מתמטיות בפיסיקה/תרגול/שאלות לתרגול.pdf",
+            "download_url": "https://raw.githubusercontent.com/YoavsPhysicsNotes/yoavsphysicsnotes.github.io/main/20602 שיטות מתמטיות בפיסיקה/תרגול/שאלות לתרגול.pdf",
+            "last_modified": "2026-02-11 22:27:55"
+          }
+        ]
       }
     ]
   }
