@@ -86,27 +86,6 @@ main {
   padding: 28px 20px;
 }
 
-/* ===== Search ===== */
-.search-wrap {
-  margin-bottom: 20px;
-}
-
-#search {
-  width: 100%;
-  padding: 10px 16px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  color: var(--text);
-  font-size: 0.95rem;
-  direction: rtl;
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-#search::placeholder { color: var(--text-muted); }
-#search:focus { border-color: var(--accent); }
-
 /* ===== Tree Container ===== */
 #tree-container {
   background: var(--surface);

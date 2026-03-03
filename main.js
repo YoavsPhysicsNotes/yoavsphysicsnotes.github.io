@@ -73,7 +73,7 @@ function renderPdf(node) {
 
   row.innerHTML = `
     <span class="pdf-icon">📄</span>
-    <span class="pdf-name"><a href="${url}" target="_blank" rel="noopener">${displayName}</a></span>
+    <span class="pdf-name"><a href="https://docs.google.com/viewer?url=${encodeURIComponent(url)}" target="_blank" rel="noopener">${displayName}</a></span>
     <button class="pdf-preview-btn" type="button">תצוגה מקדימה</button>
     <span class="file-date">${formatDate(node.last_modified)}</span>
   `;
@@ -101,35 +101,6 @@ function renderDir(node) {
   return details;
 }
 
-/* ---------- Search ---------- */
-
-function applySearch(query) {
-  const q = query.trim().toLowerCase();
-  const container = document.getElementById("tree");
-
-  if (!q) {
-    // Reset: show everything
-    container.querySelectorAll(".pdf-row").forEach((el) => el.style.display = "");
-    container.querySelectorAll("details").forEach((el) => el.style.display = "");
-    return;
-  }
-
-  // Hide/show pdf rows
-  container.querySelectorAll(".pdf-row").forEach((el) => {
-    el.style.display = el.dataset.name.includes(q) ? "" : "none";
-  });
-
-  // Show/hide folder containers based on whether they contain visible PDFs
-  // Walk bottom-up: leaf details first
-  const allDetails = [...container.querySelectorAll("details")].reverse();
-  allDetails.forEach((det) => {
-    const hasVisible =
-      [...det.querySelectorAll(".pdf-row")].some((r) => r.style.display !== "none") ||
-      [...det.querySelectorAll("details")].some((d) => d.style.display !== "none");
-    det.style.display = hasVisible ? "" : "none";
-  });
-}
-
 /* ---------- Boot ---------- */
 
 async function load() {
@@ -148,11 +119,6 @@ async function load() {
   } catch (err) {
     container.innerHTML = `<div id="loading">שגיאה בטעינת הנתונים: ${err.message}</div>`;
   }
-}
-
-const searchEl = document.getElementById("search");
-if (searchEl) {
-  searchEl.addEventListener("input", () => applySearch(searchEl.value));
 }
 
 load();
