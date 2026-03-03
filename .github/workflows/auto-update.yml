@@ -1,0 +1,30 @@
+name: Auto Update Tree
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "**/*.pdf"
+      - "**/*.PDF"
+
+permissions:
+  contents: write
+
+jobs:
+  update-tree:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout with full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Regenerate tree.json
+        run: python3 build_tree.py
+
+      - name: Commit tree.json if changed
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Auto update: tree.json [skip ci]"
+          file_pattern: tree.json
