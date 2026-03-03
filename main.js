@@ -17,6 +17,11 @@ function rawUrl(node) {
   return `https://raw.githubusercontent.com/${REPO}/${BRANCH}/${encodePath(node.path)}?v=${node.last_modified}`;
 }
 
+function blobUrl(node) {
+  // GitHub blob viewer — displays PDFs inline in a new tab, no download
+  return `https://github.com/${REPO}/blob/${BRANCH}/${encodePath(node.path)}`;
+}
+
 /* ---------- Date formatting ---------- */
 
 function formatDate(dateStr) {
@@ -73,7 +78,7 @@ function renderPdf(node) {
 
   row.innerHTML = `
     <span class="pdf-icon">📄</span>
-    <span class="pdf-name"><a href="https://docs.google.com/viewer?url=${encodeURIComponent(url)}" target="_blank" rel="noopener">${displayName}</a></span>
+    <span class="pdf-name"><a href="${blobUrl(node)}" target="_blank" rel="noopener">${displayName}</a></span>
     <button class="pdf-preview-btn" type="button">תצוגה מקדימה</button>
     <span class="file-date">${formatDate(node.last_modified)}</span>
   `;
