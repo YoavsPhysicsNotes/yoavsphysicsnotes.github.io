@@ -17,9 +17,10 @@ function rawUrl(node) {
   return `https://raw.githubusercontent.com/${REPO}/${BRANCH}/${encodePath(node.path)}?v=${node.last_modified}`;
 }
 
-function blobUrl(node) {
-  // GitHub blob viewer — displays PDFs inline in a new tab, no download
-  return `https://github.com/${REPO}/blob/${BRANCH}/${encodePath(node.path)}`;
+function viewerUrl(node) {
+  // Clean URL — no ?v= param (spaces break Google's decoder)
+  const pdf = `https://raw.githubusercontent.com/${REPO}/${BRANCH}/${encodePath(node.path)}`;
+  return `https://docs.google.com/viewer?url=${encodeURIComponent(pdf)}`;
 }
 
 /* ---------- Date formatting ---------- */
@@ -41,12 +42,12 @@ const modalOpenBtn = document.getElementById("modal-open-btn");
 
 function openPreview(node) {
   const url = rawUrl(node);
-  const viewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(url)}&embedded=true`;
+  const embedUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(url)}&embedded=true`;
   const displayName = node.name.replace(/\.pdf$/i, "");
 
   modalTitle.textContent = displayName;
   modalOpenBtn.href = url;
-  frame.src = viewerUrl;
+  frame.src = embedUrl;
 
   modal.classList.remove("hidden");
   overlay.classList.remove("hidden");
@@ -78,11 +79,12 @@ function renderPdf(node) {
 
   row.innerHTML = `
     <span class="pdf-icon">📄</span>
-    <span class="pdf-name"><a href="${blobUrl(node)}" target="_blank" rel="noopener">${displayName}</a></span>
+    <span class="pdf-name"><a target="_blank" rel="noopener">${displayName}</a></span>
     <button class="pdf-preview-btn" type="button">תצוגה מקדימה</button>
     <span class="file-date">${formatDate(node.last_modified)}</span>
   `;
 
+  row.querySelector(".pdf-name a").href = viewerUrl(node);
   row.querySelector(".pdf-preview-btn").addEventListener("click", () => openPreview(node));
   return row;
 }
