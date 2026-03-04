@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDF Viewer</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #0d1117;
+      color: #e6edf3;
+      font-family: system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    #toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #161b22;
+      border-bottom: 1px solid #30363d;
+      padding: 0 16px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    #toolbar a {
+      color: #58a6ff;
+      text-decoration: none;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    #toolbar a:hover { text-decoration: underline; }
+
+    #doc-title {
+      flex: 1;
+      font-size: 14px;
+      color: #e6edf3;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    #viewer {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    canvas {
+      display: block;
+      max-width: 100%;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+      background: #fff;
+    }
+
+    #status {
+      color: #8b949e;
+      font-size: 14px;
+      padding: 32px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div id="toolbar">
+  <a href="/">← בית</a>
+  <span id="doc-title">טוען…</span>
+  <a id="dl-link" href="#">הורד ↓</a>
+</div>
+
+<div id="viewer">
+  <div id="status">טוען PDF…</div>
+</div>
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GT3CDBXQ3Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-GT3CDBXQ3Z');
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+  pdfjsLib.GlobalWorkerOptions.workerSrc =
+    'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+  const params  = new URLSearchParams(location.search);
+  const pdfUrl  = params.get('url');
+  const pdfName = params.get('name') || 'PDF';
+
+  document.title = pdfName;
+  document.getElementById('doc-title').textContent = pdfName;
+  document.getElementById('dl-link').href = pdfUrl || '#';
+
+  const viewer = document.getElementById('viewer');
+  const status = document.getElementById('status');
+
+  if (!pdfUrl) {
+    status.textContent = 'לא סופק קובץ PDF.';
+  } else {
+    pdfjsLib.getDocument({ url: pdfUrl, withCredentials: false })
+      .promise
+      .then(async (pdf) => {
+        status.remove();
+
+        const screenWidth = viewer.clientWidth || window.innerWidth - 16;
+
+        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+          const page = await pdf.getPage(pageNum);
+          const baseViewport = page.getViewport({ scale: 1 });
+          const scale = Math.min(screenWidth / baseViewport.width, 2);
+          const viewport = page.getViewport({ scale });
+
+          const canvas = document.createElement('canvas');
+          canvas.width  = viewport.width;
+          canvas.height = viewport.height;
+          canvas.style.width  = viewport.width  + 'px';
+          canvas.style.height = viewport.height + 'px';
+          viewer.appendChild(canvas);
+
+          await page.render({
+            canvasContext: canvas.getContext('2d'),
+            viewport,
+          }).promise;
+        }
+      })
+      .catch((err) => {
+        status.textContent = 'שגיאה בטעינת ה-PDF: ' + err.message;
+      });
+  }
+</script>
+</body>
+</html>

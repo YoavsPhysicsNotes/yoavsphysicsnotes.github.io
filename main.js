@@ -18,9 +18,9 @@ function rawUrl(node) {
 }
 
 function viewerUrl(node) {
-  // Clean URL — no ?v= param (spaces break Google's decoder)
-  const pdf = `https://raw.githubusercontent.com/${REPO}/${BRANCH}/${encodePath(node.path)}`;
-  return `https://docs.google.com/viewer?url=${encodeURIComponent(pdf)}`;
+  const pdf  = `https://raw.githubusercontent.com/${REPO}/${BRANCH}/${encodePath(node.path)}`;
+  const name = node.name.replace(/\.pdf$/i, "");
+  return `viewer.html?url=${encodeURIComponent(pdf)}&name=${encodeURIComponent(name)}`;
 }
 
 /* ---------- Date formatting ---------- */
